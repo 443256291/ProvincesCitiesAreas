@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper中namespace作用是绑定实现类-->
+<mapper namespace="com.gs.base.dao.BaseDAO">
+    <!--定义数据库对象与实体对象之间的关系-->
+
+    <resultMap id="bgLoginPOJO" type="com.gs.base.model.BaseModel">
+        <id column="id" property="id"/>
+        <result column="create_by" property="create_by"/>
+        <result column="create_time" property="create_time"/>
+        <result column="modify_by" property="modify_by"/>
+        <result column="modify_time" property="modify_time"/>
+        <result column="status" property="status"/>
+        <result column="available" property="available"/>
+        <result column="prepare1" property="prepare1"/>
+        <result column="prepare2" property="prepare2"/>
+        <result column="prepare3" property="prepare3"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+
+        <if test="id!=null">id,</if>
+        <if test="create_by!=null">create_by,</if>
+        <if test="create_time!=null">create_time,</if>
+        <if test="modify_by!=null">modify_by,</if>
+        <if test="modify_time!=null">modify_time,</if>
+        <if test="status!=null">status,</if>
+        <if test="available!=null">available,</if>
+        <if test="prepare1!=null">prepare1,</if>
+        <if test="prepare2!=null">prepare2,</if>
+        <if test="prepare3!=null">prepare3,</if>
+    </sql>
+    <sql id="Base_property_List">
+        <if test="id!=null">#{id},</if>
+        <if test="create_by!=null">#{create_by},</if>
+        <if test="create_time!=null">#{create_time},</if>
+        <if test="modify_by!=null">#{modify_by},</if>
+        <if test="modify_time!=null">#{modify_time},</if>
+        <if test="status!=null">#{status},</if>
+        <if test="available!=null">#{available},</if>
+        <if test="prepare1!=null">#{prepare1},</if>
+        <if test="prepare2!=null">#{prepare2},</if>
+        <if test="prepare3!=null">#{prepare3},</if>
+    </sql>
+    <sql id="Base_update_List">
+        <if test="create_by!=null">create_by = #{create_by},</if>
+        <if test="create_time!=null">create_time = #{create_time},</if>
+        <if test="modify_by!=null">modify_by = #{modify_by},</if>
+        <if test="modify_time!=null">modify_time = #{modify_time},</if>
+        <if test="status!=null">status = #{status},</if>
+        <if test="available!=null">available = #{available},</if>
+        <if test="prepare1!=null">prepare1 = #{prepare1},</if>
+        <if test="prepare2!=null">prepare2 = #{prepare2},</if>
+        <if test="prepare3!=null">prepare3 = #{prepare3},</if>
+    </sql>
+    <sql id="Base_select_List">
+        <if test="create_by!=null">AND create_by = #{create_by}</if>
+        <if test="create_time!=null">AND create_time = #{create_time}</if>
+        <if test="modify_by!=null">AND modify_by = #{modify_by}</if>
+        <if test="modify_time!=null">AND modify_time = #{modify_time}</if>
+        <if test="status!=null">AND status = #{status}</if>
+        <if test="available!=null">AND available = #{available}</if>
+        <if test="prepare1!=null">AND prepare1 = #{prepare1}</if>
+        <if test="prepare2!=null">AND prepare2 = #{prepare2}</if>
+        <if test="prepare3!=null">AND prepare3 = #{prepare3}</if>
+    </sql>
+
+    <insert id="insertPOJO">
+        INSERT INTO
+        tb_base (
+        <trim suffixOverrides=",">
+            <include refid="Base_Column_List"/>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <include refid="Base_property_List"/>
+        </trim>
+        )
+
+    </insert>
+    <delete id="deletePOJO">
+        DELETE FROM tb_base
+        WHERE id = #{id}
+    </delete>
+    <update id="updatePOJO">
+        UPDATE tb_base
+        SET
+        <trim suffix="where id = #{id}" suffixOverrides=",">
+            <include refid="Base_update_List"/>
+        </trim>
+    </update>
+
+    <select id="selectPOJO" resultMap="bgLoginPOJO" useCache="true">
+        SELECT *
+        FROM tb_base
+        WHERE id = #{id}
+    </select>
+    <select id="selectPOJOList" resultMap="bgLoginPOJO" useCache="true">
+        SELECT *
+        FROM tb_base
+        WHERE 1=1
+        <trim suffixOverrides=",">
+            <include refid="Base_select_List"/>
+        </trim>
+
+
+    </select>
+</mapper>

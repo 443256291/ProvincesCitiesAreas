@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper中namespace作用是绑定实现类-->
+<mapper namespace="com.gs.base.dao.PcaProvincesDAO">
+    <!--定义数据库对象与实体对象之间的关系-->
+
+    <resultMap id="bgLoginPOJO" type="com.gs.base.model.PcaProvincesPOJO">
+        <id column="id" property="id"/>
+        <result column="province_id" property="province_id"/>
+        <result column="province_name" property="province_name"/>
+      
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+
+        <if test="id!=null">id,</if>
+        <if test="province_id!=null">province_id,</if>
+        <if test="province_name!=null">province_name,</if>
+     
+    </sql>
+    <sql id="Base_property_List">
+        <if test="id!=null">#{id},</if>
+        <if test="province_id!=null">#{province_id},</if>
+        <if test="province_name!=null">#{province_name},</if>
+      
+    </sql>
+    <sql id="Base_update_List">
+        <if test="province_id!=null">province_id = #{province_id},</if>
+        <if test="province_name!=null">province_name = #{province_name},</if>
+       
+    </sql>
+    <sql id="Base_select_List">
+        <if test="province_id!=null">AND province_id = #{province_id}</if>
+        <if test="province_name!=null">AND province_name = #{province_name}</if>
+       
+    </sql>
+
+    <insert id="insertPOJO">
+        INSERT INTO
+        tb_pca_provinces (
+        <trim suffixOverrides=",">
+            <include refid="Base_Column_List"/>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <include refid="Base_property_List"/>
+        </trim>
+        )
+
+    </insert>
+    <delete id="deletePOJO">
+        DELETE FROM tb_pca_provinces
+        WHERE id = #{id}
+    </delete>
+    <update id="updatePOJO">
+        UPDATE tb_pca_provinces
+        SET
+        <trim suffix="where id = #{id}" suffixOverrides=",">
+            <include refid="Base_update_List"/>
+        </trim>
+    </update>
+
+    <select id="selectPOJO" resultMap="bgLoginPOJO" useCache="true">
+        SELECT *
+        FROM tb_pca_provinces
+        WHERE id = #{id}
+    </select>
+    <select id="selectPOJOList" resultMap="bgLoginPOJO" useCache="true">
+        SELECT *
+        FROM tb_pca_provinces
+        WHERE 1=1
+        <trim  suffixOverrides=",">
+            <include refid="Base_select_List"/>
+        </trim>
+
+
+    </select>
+</mapper>
